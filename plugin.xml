@@ -5,9 +5,9 @@
   id="br.ueg.RadWin"
   version="0.1.0">
   <name>RadWinPlugin</name>
-  <description>Cordova RadWin Plugin</description>
+  <description>Cordova RadWinPlugin</description>
   <license>Apache 2.0</license>
-  <keywords>cordova,RadWin</keywords>
+  <keywords>cordova,RadWinPlugin</keywords>
 
   <js-module src="www/RadWinPlugin.js" name="RadWinPlugin">
     <clobbers target="window.RadWinPlugin" />
@@ -20,6 +20,10 @@
         <param name="android-package" value="br.ueg.RadWin.RadWinPlugin"/>
       </feature>
     </config-file>
+
+	<!-- snmp4j distribution for Android: -->
+	<source-file src="src/android/libs/snmp4j-2.3.0.jar" target-dir="libs"/>
+
     <config-file target="AndroidManifest.xml" parent="/*">
       <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
       <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
