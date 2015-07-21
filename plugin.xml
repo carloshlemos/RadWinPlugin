@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="br.ueg.RadWin"
+  version="0.1.0">
+  <name>RadWinPlugin</name>
+  <description>Cordova RadWin Plugin</description>
+  <license>Apache 2.0</license>
+  <keywords>cordova,RadWin</keywords>
+
+  <js-module src="www/RadWin.js" name="RadWinPlugin">
+    <clobbers target="window.RadWinPlugin" />
+  </js-module>
+
+  <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="RadWinPlugin">
+        <param name="android-package" value="br.ueg.RadWin.RadWinPlugin"/>
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+      <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+
+    <source-file src="src/android/RadWinPlugin.java" target-dir="src/br/ueg/RadWin/" />
+  </platform>
+
+</plugin>
