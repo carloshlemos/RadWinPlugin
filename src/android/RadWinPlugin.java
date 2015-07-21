@@ -36,8 +36,7 @@ public class RadWinPlugin extends CordovaPlugin {
 
         if (action.equals("getOID")) {
 
-            //String OID = this.snmpGet(strAddress, community, strOID);
-            String OID = "FUNCIONOU";
+            String OID = this.snmpGet(strAddress, community, strOID);
 
             if (OID != null) {
                 JSONObject JSONresult = new JSONObject();
