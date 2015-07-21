@@ -22,7 +22,7 @@
     </config-file>
 
 	<!-- snmp4j distribution for Android: -->
-	<source-file src="src/android/libs/snmp4j-2.3.0.jar" target-dir="libs"/>
+	<source-file src="src/libs/snmp4j-2.3.0.jar" target-dir="libs"/>
 
     <config-file target="AndroidManifest.xml" parent="/*">
       <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
