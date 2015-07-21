@@ -9,7 +9,7 @@
   <license>Apache 2.0</license>
   <keywords>cordova,RadWin</keywords>
 
-  <js-module src="www/RadWin.js" name="RadWinPlugin">
+  <js-module src="www/RadWinPlugin.js" name="RadWinPlugin">
     <clobbers target="window.RadWinPlugin" />
   </js-module>
 
