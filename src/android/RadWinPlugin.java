@@ -29,9 +29,12 @@ public class RadWinPlugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getOID")) {
 
-            String address = data.getString(0);
-            String community = data.getString(1);
-            String strOID = data.getString(0);
+            JSONObject params = new JSONObject(data);
+            
+            String address = params.getString("address");
+            String community = params.getString("community");
+            String strOID = params.getString("strOID");
+            
             String OID = "Hello, " + address + ", " + community + ", " + strOID;
 
             //String OID = this.snmpGet(data.getString(0), data.getString(1), data.getString(2), callbackContext);
