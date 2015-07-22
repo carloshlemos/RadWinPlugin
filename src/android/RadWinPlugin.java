@@ -26,7 +26,7 @@ public class RadWinPlugin extends CordovaPlugin {
     }
 
     @Override
-    public PluginResult execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
+    public void execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getOID")) {
 
             JSONObject params = new JSONObject(data.getString(0));
@@ -35,27 +35,30 @@ public class RadWinPlugin extends CordovaPlugin {
             String community = params.getString("community");
             String strOIDLatitude = params.getString("strOIDLatitude");
             String strOIDLongitude = params.getString("strOIDLongitude");
-
+            
             //String OID = "Hello, " + address + ", " + community + ", " + strOID;
             String OIDLatitude = this.snmpGet(address, community, strOIDLatitude, callbackContext);
             String OIDLongitude = this.snmpGet(address, community, strOIDLongitude, callbackContext);
-
+            
             if (OIDLatitude != null && OIDLongitude != null) {
                 JSONObject JSONresult = new JSONObject();
                 try {
                     JSONresult.put("OIDLatitude", OIDLatitude);
                     JSONresult.put("OIDLongitude", OIDLongitude);
-                    PluginResult r = new PluginResult(PluginResult.Status.OK,
-                            JSONresult);
-                    return r;
+                    
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, JSONresult);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                    
                 } catch (JSONException jsonEx) {
-                    PluginResult r = new PluginResult(
+                    PluginResult resultError = new PluginResult(
                             PluginResult.Status.JSON_EXCEPTION);
-                    return r;
+                    callbackContext.error("error");
+                    resultError.setKeepCallback(true);
+                    callbackContext.sendPluginResult(resultError);
                 }
             }
         }
-        return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
     }
 
     /*
@@ -117,12 +120,12 @@ public class RadWinPlugin extends CordovaPlugin {
             snmp.close();
 
         } catch (Exception e) {
-            PluginResult r = new PluginResult(
-                    PluginResult.Status.JSON_EXCEPTION);
-            callbackContext.error("Error: " + e.getMessage());
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
-            return null;
+                PluginResult r = new PluginResult(
+                        PluginResult.Status.JSON_EXCEPTION);
+                callbackContext.error("Error: " + e.getMessage());
+                r.setKeepCallback(true);
+                callbackContext.sendPluginResult(r);
+                return null;
         }
         return str;
     }
