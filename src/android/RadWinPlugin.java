@@ -43,7 +43,7 @@ public class RadWinPlugin extends CordovaPlugin {
                     return true;
                 } catch (JSONException jsonEx) {
                     PluginResult r = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
-                    callbackContext.error(jsonEx);
+                    callbackContext.error(jsonEx.getMessage());
                     r.setKeepCallback(true);
                     callbackContext.sendPluginResult(r);
                     return true;
