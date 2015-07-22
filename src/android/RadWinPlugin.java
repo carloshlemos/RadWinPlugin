@@ -30,8 +30,8 @@ public class RadWinPlugin extends CordovaPlugin {
         if (action.equals("getOID")) {
 
             String address = data.getString(0);
-            String community = data.getString(0);
-            String strOID = data.getString(0);
+            String community = data.getString(1);
+            String strOID = data.getString(2);
             String OID = "Hello, " + address + ", " + community + ", " + strOID;
             
             //String OID = this.snmpGet(data.getString(0), data.getString(1), data.getString(2), callbackContext);
