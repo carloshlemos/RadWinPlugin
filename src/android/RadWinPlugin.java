@@ -27,10 +27,8 @@ public class RadWinPlugin extends CordovaPlugin {
 
         if (action.equals("getOID")) {
 
-            String name = data.getString(0);
             String OID = this.snmpGet("10.0.0.122", "public", data.getString(0), callbackContext);
-            String message = "Hello, " + name;
-            callbackContext.success(message);
+            callbackContext.success(OID);
 
             return true;
 
