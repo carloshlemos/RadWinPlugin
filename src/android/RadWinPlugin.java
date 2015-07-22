@@ -30,7 +30,7 @@ public class RadWinPlugin extends CordovaPlugin {
         if (action.equals("getOID")) {
 
             String address = data.getString(0);
-            String community = data.getString(0);
+            String community = data.getString(1);
             String strOID = data.getString(0);
             String OID = "Hello, " + address + ", " + community + ", " + strOID;
 
