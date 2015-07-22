@@ -21,13 +21,6 @@ import android.content.Context;
 
 public class RadWinPlugin extends CordovaPlugin {
 
-    public boolean isSynch(String action) {
-        if (action.equals("getOID")) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         String strAddress = args.getString(0);
@@ -36,7 +29,7 @@ public class RadWinPlugin extends CordovaPlugin {
 
         if (action.equals("getOID")) {
 
-            String OID = this.snmpGet(strAddress, community, strOID);
+            String OID = this.snmpGet(strAddress, community, strOID, callbackContext);
 
             if (OID != null) {
                 JSONObject JSONresult = new JSONObject();
@@ -49,9 +42,8 @@ public class RadWinPlugin extends CordovaPlugin {
                     callbackContext.sendPluginResult(r);
                     return true;
                 } catch (JSONException jsonEx) {
-                    PluginResult r = new PluginResult(
-                            PluginResult.Status.JSON_EXCEPTION);
-                    callbackContext.error("fail");
+                    PluginResult r = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+                    callbackContext.error(jsonEx);
                     r.setKeepCallback(true);
                     callbackContext.sendPluginResult(r);
                     return true;
@@ -70,7 +62,7 @@ public class RadWinPlugin extends CordovaPlugin {
      * return Response for given OID from the Device.
 
      */
-    private String snmpGet(String strAddress, String community, String strOID) {
+    private String snmpGet(String strAddress, String community, String strOID, CallbackContext callbackContext) {
         String str = "";
 
         try {
@@ -112,13 +104,13 @@ public class RadWinPlugin extends CordovaPlugin {
                     }
                 }
             } else {
-                System.out.println("Feeling like a TimeOut occured ");
+                callbackContext.error("Feeling like a TimeOut occured.");
             }
 
             snmp.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            callbackContext.error("Error: " + e.getMessage());
         }
         return str;
     }
