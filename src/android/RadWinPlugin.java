@@ -26,7 +26,7 @@ public class RadWinPlugin extends CordovaPlugin {
     }
 
     @Override
-    public void execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getOID")) {
 
             JSONObject params = new JSONObject(data.getString(0));
@@ -49,16 +49,18 @@ public class RadWinPlugin extends CordovaPlugin {
                     PluginResult result = new PluginResult(PluginResult.Status.OK, JSONresult);
                     result.setKeepCallback(true);
                     callbackContext.sendPluginResult(result);
-                    
+                    return true;
                 } catch (JSONException jsonEx) {
                     PluginResult resultError = new PluginResult(
                             PluginResult.Status.JSON_EXCEPTION);
                     callbackContext.error("error");
                     resultError.setKeepCallback(true);
                     callbackContext.sendPluginResult(resultError);
+                    return false;
                 }
             }
         }
+        return false;
     }
 
     /*
