@@ -33,18 +33,21 @@ public class RadWinPlugin extends CordovaPlugin {
 
             String address = params.getString("address");
             String community = params.getString("community");
-            String strOID = params.getString("strOID");
+            String strOIDLatitude = params.getString("strOIDLatitude");
+            String strOIDLongitude = params.getString("strOIDLongitude");
             
             //String OID = "Hello, " + address + ", " + community + ", " + strOID;
-            String OID = this.snmpGet(address, community, strOID, callbackContext);
+            String OIDLatitude = this.snmpGet(address, community, strOIDLatitude, callbackContext);
+            String OIDLongitude = this.snmpGet(address, community, strOIDLongitude, callbackContext);
             
-            if (OID != null) {
+            if (OIDLatitude != null && OIDLongitude != null) {
                 JSONObject JSONresult = new JSONObject();
                 try {
-                    JSONresult.put("oid", OID);
+                    JSONresult.put("OIDLatitude", OIDLatitude);
+                    JSONresult.put("OIDLongitude", OIDLongitude);
                     PluginResult r = new PluginResult(PluginResult.Status.OK,
                             JSONresult);
-                    callbackContext.success(OID);
+                    callbackContext.success(OIDLatitude, OIDLongitude);
                     r.setKeepCallback(true);
                     callbackContext.sendPluginResult(r);
                     return true;
