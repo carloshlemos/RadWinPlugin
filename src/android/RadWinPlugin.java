@@ -29,7 +29,7 @@ public class RadWinPlugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getOID")) {
 
-            JSONObject params = new JSONObject(data);
+            JSONObject params = new JSONObject(data.getString(0));
             
             String address = params.getString("address");
             String community = params.getString("community");
