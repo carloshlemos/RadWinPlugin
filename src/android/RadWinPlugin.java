@@ -106,23 +106,13 @@ public class RadWinPlugin extends CordovaPlugin {
                     }
                 }
             } else {
-                PluginResult r = new PluginResult(
-                        PluginResult.Status.JSON_EXCEPTION);
                 callbackContext.error("Feeling like a TimeOut occured.");
-                r.setKeepCallback(true);
-                callbackContext.sendPluginResult(r);
-                return null;
             }
 
             snmp.close();
 
         } catch (Exception e) {
-            PluginResult r = new PluginResult(
-                    PluginResult.Status.JSON_EXCEPTION);
             callbackContext.error("Error: " + e.getMessage());
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
-            return null;
         }
         return str;
     }
