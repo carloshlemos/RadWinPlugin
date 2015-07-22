@@ -1,8 +1,11 @@
 package br.ueg.RadWin;
 
-import org.apache.cordova.*;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -23,20 +26,32 @@ public class RadWinPlugin extends CordovaPlugin {
     }
 
     @Override
-    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
-
+    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
         if (action.equals("getOID")) {
 
             String OID = this.snmpGet("10.0.0.122", "public", data.getString(0), callbackContext);
-            callbackContext.success(OID);
 
-            return true;
-
-        } else {
-
-            return false;
-
+            if (OID != null) {
+                JSONObject JSONresult = new JSONObject();
+                try {
+                    JSONresult.put("oid", OID);
+                    PluginResult r = new PluginResult(PluginResult.Status.OK,
+                            JSONresult);
+                    callbackContext.success(OID);
+                    r.setKeepCallback(true);
+                    callbackContext.sendPluginResult(r);
+                    return true;
+                } catch (JSONException jsonEx) {
+                    PluginResult r = new PluginResult(
+                            PluginResult.Status.JSON_EXCEPTION);
+                    callbackContext.error("error");
+                    r.setKeepCallback(true);
+                    callbackContext.sendPluginResult(r);
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
     /*
