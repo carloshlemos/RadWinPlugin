@@ -26,7 +26,7 @@ public class RadWinPlugin extends CordovaPlugin {
     }
 
     @Override
-    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getOID")) {
 
             String OID = this.snmpGet("10.0.0.122", "public", data.getString(0), callbackContext);
