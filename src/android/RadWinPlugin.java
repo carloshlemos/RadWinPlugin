@@ -20,12 +20,21 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 import android.content.Context;
 
 public class RadWinPlugin extends CordovaPlugin {
+    
+    public boolean isSynch(String action) {
+        if (action.equals("getOID")) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         String strAddress = args.getString(0);
         String community = args.getString(1);
         String strOID = args.getString(2);
+        
+        webView.loadUrl("javascript:console.log('Chegou os parâmetros: " +  strAddress  + "');");
 
         if (action.equals("getOID")) {
 
